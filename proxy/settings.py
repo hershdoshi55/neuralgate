@@ -4,7 +4,7 @@ from typing import Optional
 
 class Settings(BaseSettings):
     # Database
-    database_url: str
+    database_url: str = "postgresql://postgres:postgres@localhost:5432/neuralgate"
 
     # Redis
     redis_url: str = "redis://localhost:6379"
