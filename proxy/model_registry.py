@@ -7,23 +7,23 @@ MODEL_REGISTRY = {
     # Pricing: https://www.anthropic.com/pricing
     # ═══════════════════════════════════════════════════════
 
-    "claude-opus-4-5": {
+    "claude-opus-4-6": {
         "provider": "anthropic",
-        "display_name": "Claude Opus 4.5",
+        "display_name": "Claude Opus 4.6",
         "tier": "frontier",
         "context_window": 200_000,
         "max_output_tokens": 4096,
-        "input_cost_per_million": 15.00,
-        "output_cost_per_million": 75.00,
+        "input_cost_per_million": 5.00,
+        "output_cost_per_million": 25.00,
         "supports_system_prompt": True,
         "supports_vision": True,
         "description": "Anthropic's most capable model. Best for complex reasoning, nuanced writing, advanced coding.",
         "latency_tier": "slow",
     },
 
-    "claude-sonnet-4-5": {
+    "claude-sonnet-4-6": {
         "provider": "anthropic",
-        "display_name": "Claude Sonnet 4.5",
+        "display_name": "Claude Sonnet 4.6",
         "tier": "mid",
         "context_window": 200_000,
         "max_output_tokens": 8096,
@@ -35,14 +35,14 @@ MODEL_REGISTRY = {
         "latency_tier": "medium",
     },
 
-    "claude-haiku-4-5": {
+    "claude-haiku-4-5-20251001": {
         "provider": "anthropic",
         "display_name": "Claude Haiku 4.5",
         "tier": "cheap",
         "context_window": 200_000,
         "max_output_tokens": 4096,
-        "input_cost_per_million": 0.80,
-        "output_cost_per_million": 4.00,
+        "input_cost_per_million": 1.00,
+        "output_cost_per_million": 5.00,
         "supports_system_prompt": True,
         "supports_vision": True,
         "description": "Fastest and most affordable Claude. Great for simple Q&A, classification, extraction.",
@@ -54,125 +54,93 @@ MODEL_REGISTRY = {
     # Pricing: https://openai.com/api/pricing
     # ═══════════════════════════════════════════════════════
 
-    "gpt-4o": {
+    "gpt-5.4": {
         "provider": "openai",
-        "display_name": "GPT-4o",
+        "display_name": "GPT-5.4",
         "tier": "frontier",
         "context_window": 128_000,
         "max_output_tokens": 16_384,
         "input_cost_per_million": 2.50,
-        "output_cost_per_million": 10.00,
+        "output_cost_per_million": 15.00,
         "supports_system_prompt": True,
         "supports_vision": True,
-        "description": "OpenAI's flagship model. Strong at reasoning, coding, and multimodal tasks.",
-        "latency_tier": "medium",
+        "description": "OpenAI's most capable model. Best for complex reasoning, coding, and professional work.",
+        "latency_tier": "slow",
     },
 
-    "gpt-4o-mini": {
+    "gpt-5-mini": {
         "provider": "openai",
-        "display_name": "GPT-4o Mini",
+        "display_name": "GPT-5 Mini",
         "tier": "mid",
         "context_window": 128_000,
         "max_output_tokens": 16_384,
-        "input_cost_per_million": 0.15,
-        "output_cost_per_million": 0.60,
+        "input_cost_per_million": 0.25,
+        "output_cost_per_million": 2.00,
         "supports_system_prompt": True,
         "supports_vision": True,
-        "description": "Highly capable and very affordable. Handles most tasks well.",
+        "description": "Fast and capable GPT-5 variant. Great balance of quality and cost.",
         "latency_tier": "fast",
     },
 
-    "o3-mini": {
+    "gpt-5-nano": {
         "provider": "openai",
-        "display_name": "o3-mini",
-        "tier": "frontier",
-        "context_window": 200_000,
-        "max_output_tokens": 100_000,
-        "input_cost_per_million": 1.10,
-        "output_cost_per_million": 4.40,
+        "display_name": "GPT-5 Nano",
+        "tier": "cheap",
+        "context_window": 128_000,
+        "max_output_tokens": 16_384,
+        "input_cost_per_million": 0.05,
+        "output_cost_per_million": 0.40,
         "supports_system_prompt": True,
-        "supports_vision": False,
-        "description": "OpenAI's reasoning model. Best for math, logic, and multi-step problem solving.",
-        "latency_tier": "slow",
+        "supports_vision": True,
+        "description": "Smallest and cheapest GPT-5 model. Best for simple classification and extraction.",
+        "latency_tier": "fast",
     },
 
     # ═══════════════════════════════════════════════════════
     # GOOGLE
     # Pricing: https://ai.google.dev/pricing
+    # All three models have a free tier — no payment required
     # ═══════════════════════════════════════════════════════
 
-    "gemini-1.5-pro": {
+    "gemini-2.5-pro": {
         "provider": "google",
-        "display_name": "Gemini 1.5 Pro",
+        "display_name": "Gemini 2.5 Pro",
         "tier": "frontier",
-        "context_window": 2_000_000,
+        "context_window": 1_000_000,
         "max_output_tokens": 8192,
-        "input_cost_per_million": 3.50,
-        "output_cost_per_million": 10.50,
+        "input_cost_per_million": 1.25,
+        "output_cost_per_million": 10.00,
         "supports_system_prompt": True,
         "supports_vision": True,
-        "description": "Google's most capable model. Industry-leading context window. Great for long documents.",
+        "description": "Google's most capable stable model. Excels at coding and complex reasoning. Free tier available.",
         "latency_tier": "medium",
     },
 
-    "gemini-1.5-flash": {
+    "gemini-2.5-flash": {
         "provider": "google",
-        "display_name": "Gemini 1.5 Flash",
+        "display_name": "Gemini 2.5 Flash",
         "tier": "mid",
         "context_window": 1_000_000,
         "max_output_tokens": 8192,
-        "input_cost_per_million": 0.075,
-        "output_cost_per_million": 0.30,
+        "input_cost_per_million": 0.30,
+        "output_cost_per_million": 2.50,
         "supports_system_prompt": True,
         "supports_vision": True,
-        "description": "Extremely fast and very cheap. Good for high-volume workloads.",
+        "description": "Fast hybrid reasoning model. Great balance of speed and intelligence. Free tier available.",
         "latency_tier": "fast",
     },
 
-    "gemini-1.5-flash-8b": {
+    "gemini-2.5-flash-lite": {
         "provider": "google",
-        "display_name": "Gemini 1.5 Flash 8B",
+        "display_name": "Gemini 2.5 Flash-Lite",
         "tier": "cheap",
         "context_window": 1_000_000,
         "max_output_tokens": 8192,
-        "input_cost_per_million": 0.0375,
-        "output_cost_per_million": 0.15,
+        "input_cost_per_million": 0.10,
+        "output_cost_per_million": 0.40,
         "supports_system_prompt": True,
         "supports_vision": True,
-        "description": "Smallest Gemini model. Best for simple extraction, classification, summaries.",
-        "latency_tier": "fast",
-    },
-
-    # ═══════════════════════════════════════════════════════
-    # XAI (GROK)
-    # Pricing: https://x.ai/api
-    # ═══════════════════════════════════════════════════════
-
-    "grok-2": {
-        "provider": "xai",
-        "display_name": "Grok 2",
-        "tier": "frontier",
-        "context_window": 131_072,
-        "max_output_tokens": 4096,
-        "input_cost_per_million": 2.00,
-        "output_cost_per_million": 10.00,
-        "supports_system_prompt": True,
-        "supports_vision": False,
-        "description": "xAI's flagship model. OpenAI-compatible API. Good for general tasks.",
-        "latency_tier": "medium",
-    },
-
-    "grok-2-mini": {
-        "provider": "xai",
-        "display_name": "Grok 2 Mini",
-        "tier": "mid",
-        "context_window": 131_072,
-        "max_output_tokens": 4096,
-        "input_cost_per_million": 0.20,
-        "output_cost_per_million": 0.50,
-        "supports_system_prompt": True,
-        "supports_vision": False,
-        "description": "Smaller, faster Grok model.",
+        "description": "Smallest and most cost-efficient Gemini model. Built for high-volume tasks. Free tier available.",
         "latency_tier": "fast",
     },
 
@@ -183,63 +151,30 @@ MODEL_REGISTRY = {
 
     "deepseek-chat": {
         "provider": "deepseek",
-        "display_name": "DeepSeek-V3",
+        "display_name": "DeepSeek V3.2",
         "tier": "mid",
-        "context_window": 64_000,
+        "context_window": 128_000,
         "max_output_tokens": 8192,
-        "input_cost_per_million": 0.27,
-        "output_cost_per_million": 1.10,
+        "input_cost_per_million": 0.28,
+        "output_cost_per_million": 0.42,
         "supports_system_prompt": True,
         "supports_vision": False,
-        "description": "DeepSeek's flagship chat model. Exceptional value — frontier-class at mid-tier pricing.",
+        "description": "DeepSeek's flagship chat model. Exceptional value — frontier-class quality at mid-tier pricing.",
         "latency_tier": "medium",
     },
 
     "deepseek-reasoner": {
         "provider": "deepseek",
-        "display_name": "DeepSeek-R1",
+        "display_name": "DeepSeek R1 (Thinking)",
         "tier": "frontier",
-        "context_window": 64_000,
-        "max_output_tokens": 8192,
-        "input_cost_per_million": 0.55,
-        "output_cost_per_million": 2.19,
+        "context_window": 128_000,
+        "max_output_tokens": 64_000,
+        "input_cost_per_million": 0.28,
+        "output_cost_per_million": 0.42,
         "supports_system_prompt": True,
         "supports_vision": False,
-        "description": "DeepSeek's reasoning model (like o1). Strong at math and logic at a fraction of OpenAI o3 pricing.",
+        "description": "DeepSeek's reasoning model with thinking mode. Strong at math and logic at minimal cost.",
         "latency_tier": "slow",
-    },
-
-    # ═══════════════════════════════════════════════════════
-    # MISTRAL
-    # Pricing: https://mistral.ai/technology/#pricing
-    # ═══════════════════════════════════════════════════════
-
-    "mistral-large-latest": {
-        "provider": "mistral",
-        "display_name": "Mistral Large",
-        "tier": "frontier",
-        "context_window": 128_000,
-        "max_output_tokens": 4096,
-        "input_cost_per_million": 2.00,
-        "output_cost_per_million": 6.00,
-        "supports_system_prompt": True,
-        "supports_vision": False,
-        "description": "Mistral's most capable model. Strong at code and multilingual tasks.",
-        "latency_tier": "medium",
-    },
-
-    "mistral-small-latest": {
-        "provider": "mistral",
-        "display_name": "Mistral Small",
-        "tier": "cheap",
-        "context_window": 128_000,
-        "max_output_tokens": 4096,
-        "input_cost_per_million": 0.20,
-        "output_cost_per_million": 0.60,
-        "supports_system_prompt": True,
-        "supports_vision": False,
-        "description": "Very affordable. Good for classification, summarization, extraction.",
-        "latency_tier": "fast",
     },
 }
 
@@ -248,14 +183,14 @@ TIER_ORDER = ["cheap", "mid", "frontier"]
 
 # Default model per tier — used when no preference specified
 TIER_DEFAULTS = {
-    "cheap": "claude-haiku-4-5",
-    "mid": "claude-sonnet-4-5",
-    "frontier": "claude-opus-4-5",
+    "cheap": "claude-haiku-4-5-20251001",
+    "mid": "claude-sonnet-4-6",
+    "frontier": "claude-opus-4-6",
 }
 
 # Failover chains: if primary fails, try these in order
 FAILOVER_CHAINS = {
-    "frontier": ["claude-opus-4-5", "gpt-4o", "gemini-1.5-pro", "grok-2"],
-    "mid": ["claude-sonnet-4-5", "gpt-4o-mini", "gemini-1.5-flash", "deepseek-chat"],
-    "cheap": ["claude-haiku-4-5", "gpt-4o-mini", "gemini-1.5-flash-8b", "mistral-small-latest"],
+    "frontier": ["claude-opus-4-6", "gpt-5.4", "gemini-2.5-pro", "deepseek-reasoner"],
+    "mid": ["claude-sonnet-4-6", "gpt-5-mini", "gemini-2.5-flash", "deepseek-chat"],
+    "cheap": ["claude-haiku-4-5-20251001", "gpt-5-nano", "gemini-2.5-flash-lite"],
 }

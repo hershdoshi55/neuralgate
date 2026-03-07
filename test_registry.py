@@ -11,7 +11,7 @@ for model_id, info in sorted(MODEL_REGISTRY.items(), key=lambda x: x[1]['input_c
     print(f"  {info['display_name']}: ${info['input_cost_per_million']:.4f}")
 
 # Calculate cost of a sample request
-model = "gpt-4o"
+model = "gpt-5.4"
 prompt_tokens = 500
 completion_tokens = 300
 info = MODEL_REGISTRY[model]
