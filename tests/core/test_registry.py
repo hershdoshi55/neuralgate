@@ -1,4 +1,5 @@
 # test_registry.py
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from proxy.model_registry import MODEL_REGISTRY, TIER_DEFAULTS, FAILOVER_CHAINS
 
 print(f"Total models: {len(MODEL_REGISTRY)}")

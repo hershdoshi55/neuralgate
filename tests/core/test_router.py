@@ -1,4 +1,5 @@
 # test_router.py
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from proxy.classifier import classify_complexity
 from proxy.router import select_model
 from proxy.model_registry import MODEL_REGISTRY

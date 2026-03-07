@@ -1,4 +1,5 @@
 # test_anthropic.py
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 import asyncio
 from proxy.providers.anthropic_provider import AnthropicProvider
 

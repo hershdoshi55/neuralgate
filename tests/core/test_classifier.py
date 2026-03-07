@@ -1,4 +1,5 @@
 # test_classifier.py
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from proxy.classifier import classify_complexity
 
 test_cases = [
