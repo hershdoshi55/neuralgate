@@ -5,8 +5,8 @@ import redis.asyncio as aioredis
 from proxy.settings import settings
 
 # Routers added as they are built (Day 4+)
-from proxy.routers import completions
-# from proxy.routers import models, analytics, health
+from proxy.routers import completions, models
+# from proxy.routers import analytics, health
 # from proxy.metrics import router as metrics_router
 
 
@@ -37,7 +37,7 @@ app = FastAPI(
 
 # Routers registered here as they are built (Day 4+)
 app.include_router(completions.router)
-# app.include_router(models.router)
+app.include_router(models.router)
 # app.include_router(analytics.router, prefix="/analytics")
 # app.include_router(health.router)
 # app.include_router(metrics_router)

@@ -171,10 +171,15 @@ async def chat_completions(
             break  # Success — stop trying
 
         except Exception as e:
+            import httpx
             error_str = str(e)
-            if any(code in error_str for code in ["429", "500", "502", "503"]):
+            # Transient errors: rate limit, server errors, network failures → try next provider
+            if (isinstance(e, (httpx.ConnectError, httpx.TimeoutException, httpx.RemoteProtocolError))
+                    or any(code in error_str for code in ["429", "500", "502", "503"])):
+                print(f"Failover from {model_id}: {error_str[:100]}")
                 continue
             else:
+                # 4xx client errors (bad request, auth) — don't retry, fail immediately
                 raise HTTPException(
                     status_code=400,
                     detail={"message": f"Provider error: {error_str}", "type": "provider_error"}
