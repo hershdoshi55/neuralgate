@@ -19,9 +19,8 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r proxy/requirements.txt
 
-# Run the proxy (from proxy/ directory)
-cd proxy
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+# Run the proxy (from repo root)
+uvicorn proxy.main:app --host 0.0.0.0 --port 8000 --reload
 
 # Run the dashboard (from dashboard/ directory)
 cd dashboard
@@ -32,21 +31,26 @@ Database migrations are applied automatically when Postgres starts via the `./mi
 
 ## Running Tests
 
-There are no automated tests yet — the PRD specifies manual test scripts:
+All test scripts live in `tests/`. Always run them from the repo root:
 
 ```bash
 # Classifier accuracy test
-python test_classifier.py
+python tests/test_classifier.py
 
 # Router selection test
-python test_router.py
+python tests/test_router.py
 
-# Direct provider test
-python test_anthropic.py   # or test_openai.py etc.
+# Direct provider tests
+python tests/providers/test_anthropic.py   # or test_openai.py etc.
+
+# SDK integration test (proxy must be running)
+python tests/test_sdk.py
 
 # Load test
 python load-test/benchmark.py
 ```
+
+**Rule: every new test file goes in `tests/` (or a subdirectory like `tests/providers/`, `tests/core/`). Never place test files in the repo root.**
 
 ## Architecture
 
