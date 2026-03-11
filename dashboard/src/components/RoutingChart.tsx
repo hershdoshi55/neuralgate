@@ -8,15 +8,19 @@ const TIER_COLORS: Record<string, string> = {
   frontier: '#6366f1',
 }
 
-export function RoutingChart() {
+interface Props {
+  days: number
+}
+
+export function RoutingChart({ days }: Props) {
   const [data, setData] = useState<RoutingData | null>(null)
 
   useEffect(() => {
-    fetch('/api/analytics/routing?days=7')
+    fetch(`/api/analytics/routing?days=${days}`)
       .then((r) => r.json())
       .then(setData)
       .catch(console.error)
-  }, [])
+  }, [days])
 
   const pieData = (data?.by_tier ?? []).map((t) => ({
     name: t.tier.charAt(0).toUpperCase() + t.tier.slice(1),
@@ -76,17 +80,17 @@ export function RoutingChart() {
 }
 
 const s: Record<string, React.CSSProperties> = {
-  card:       { background: '#fff', borderRadius: 10, padding: 24, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' },
-  header:     { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 },
-  title:      { margin: 0, fontSize: 16, fontWeight: 600 },
-  subtitle:   { margin: '4px 0 0', fontSize: 12, color: '#6b7280' },
-  badge:      { background: '#fef3c7', color: '#d97706', padding: '4px 10px', borderRadius: 20, fontSize: 12, fontWeight: 600 },
-  body:       { display: 'flex', alignItems: 'center' },
-  legend:     { flex: 1, display: 'flex', flexDirection: 'column', gap: 10 },
-  legendRow:  { display: 'flex', alignItems: 'center', gap: 8 },
-  dot:        { width: 10, height: 10, borderRadius: '50%', flexShrink: 0 },
-  tierName:   { fontSize: 13, color: '#374151', flex: 1 },
-  tierVal:    { fontSize: 13, color: '#6b7280' },
-  failoverRow:{ display: 'flex', gap: 8, marginTop: 8, paddingTop: 8, borderTop: '1px solid #f3f4f6' },
-  empty:      { height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af', fontSize: 14 },
+  card:        { background: 'var(--card)', borderRadius: 10, padding: 24, boxShadow: 'var(--shadow)' },
+  header:      { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 },
+  title:       { margin: 0, fontSize: 16, fontWeight: 600, color: 'var(--text)' },
+  subtitle:    { margin: '4px 0 0', fontSize: 12, color: 'var(--text-muted)' },
+  badge:       { background: '#fef3c7', color: '#d97706', padding: '4px 10px', borderRadius: 20, fontSize: 12, fontWeight: 600 },
+  body:        { display: 'flex', alignItems: 'center' },
+  legend:      { flex: 1, display: 'flex', flexDirection: 'column', gap: 10 },
+  legendRow:   { display: 'flex', alignItems: 'center', gap: 8 },
+  dot:         { width: 10, height: 10, borderRadius: '50%', flexShrink: 0 },
+  tierName:    { fontSize: 13, color: 'var(--text)', flex: 1 },
+  tierVal:     { fontSize: 13, color: 'var(--text-muted)' },
+  failoverRow: { display: 'flex', gap: 8, marginTop: 8, paddingTop: 8, borderTop: '1px solid var(--border)' },
+  empty:       { height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: 14 },
 }

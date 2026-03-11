@@ -5,15 +5,19 @@ import {
 } from 'recharts'
 import type { SavingsData } from '../types'
 
-export function SavingsChart() {
+interface Props {
+  days: number
+}
+
+export function SavingsChart({ days }: Props) {
   const [data, setData] = useState<SavingsData | null>(null)
 
   useEffect(() => {
-    fetch('/api/analytics/savings?days=7')
+    fetch(`/api/analytics/savings?days=${days}`)
       .then((r) => r.json())
       .then(setData)
       .catch(console.error)
-  }, [])
+  }, [days])
 
   const rows = data?.daily_savings ?? []
 
@@ -35,7 +39,7 @@ export function SavingsChart() {
       ) : (
         <ResponsiveContainer width="100%" height={280}>
           <LineChart data={rows}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
             <XAxis dataKey="date" tick={{ fontSize: 11 }} />
             <YAxis tickFormatter={(v: number) => `$${v.toFixed(4)}`} tick={{ fontSize: 11 }} width={70} />
             <Tooltip formatter={(v: number, n: string) => [`$${v.toFixed(6)}`, n]} />
@@ -50,10 +54,10 @@ export function SavingsChart() {
 }
 
 const s: Record<string, React.CSSProperties> = {
-  card:     { background: '#fff', borderRadius: 10, padding: 24, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' },
+  card:     { background: 'var(--card)', borderRadius: 10, padding: 24, boxShadow: 'var(--shadow)' },
   header:   { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 },
-  title:    { margin: 0, fontSize: 16, fontWeight: 600 },
-  subtitle: { margin: '4px 0 0', fontSize: 12, color: '#6b7280' },
+  title:    { margin: 0, fontSize: 16, fontWeight: 600, color: 'var(--text)' },
+  subtitle: { margin: '4px 0 0', fontSize: 12, color: 'var(--text-muted)' },
   badge:    { background: '#f0fdf4', color: '#16a34a', padding: '4px 10px', borderRadius: 20, fontSize: 12, fontWeight: 600, whiteSpace: 'nowrap' },
-  empty:    { height: 280, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af', fontSize: 14 },
+  empty:    { height: 280, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: 14 },
 }

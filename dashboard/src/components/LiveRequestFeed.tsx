@@ -68,7 +68,7 @@ export function LiveRequestFeed() {
 
         {requests.map((r) => (
           <div key={r.request_id} style={s.row}>
-            <span style={{ ...s.col, flex: 2 }}>
+            <span style={{ ...s.col, flex: 2, color: 'var(--text)' }}>
               {PROVIDER_EMOJI[r.selected_provider] ?? '⚪'} {r.selected_model}
             </span>
             <span style={{ ...s.col, flex: 1 }}>
@@ -77,14 +77,14 @@ export function LiveRequestFeed() {
                   {r.complexity_tier}
                 </span>
               ) : (
-                <span style={{ ...s.pill, background: '#f0f9ff', color: '#0284c7' }}>cached</span>
+                <span style={{ ...s.pill, background: 'rgba(2,132,199,0.1)', color: '#0284c7' }}>cached</span>
               )}
             </span>
-            <span style={{ ...s.col, flex: 1, color: '#374151' }}>{r.total_tokens.toLocaleString()}</span>
-            <span style={{ ...s.col, flex: 1, color: '#374151' }}>
+            <span style={{ ...s.col, flex: 1, color: 'var(--text)' }}>{r.total_tokens.toLocaleString()}</span>
+            <span style={{ ...s.col, flex: 1, color: 'var(--text)' }}>
               {r.total_cost_usd > 0 ? `$${r.total_cost_usd.toFixed(6)}` : '—'}
             </span>
-            <span style={{ ...s.col, flex: 1, color: r.total_latency_ms < 100 ? '#22c55e' : '#374151' }}>
+            <span style={{ ...s.col, flex: 1, color: r.total_latency_ms < 100 ? '#22c55e' : 'var(--text)' }}>
               {formatMs(r.total_latency_ms)}
             </span>
             <span style={{ ...s.col, flex: 1 }}>
@@ -94,7 +94,7 @@ export function LiveRequestFeed() {
                 </span>
               ) : '—'}
             </span>
-            <span style={{ ...s.col, flex: 2, color: '#9ca3af', fontSize: 11 }}>
+            <span style={{ ...s.col, flex: 2, color: 'var(--text-muted)', fontSize: 11 }}>
               {new Date(r.created_at).toLocaleTimeString()}
             </span>
           </div>
@@ -105,15 +105,15 @@ export function LiveRequestFeed() {
 }
 
 const s: Record<string, React.CSSProperties> = {
-  card:    { background: '#fff', borderRadius: 10, padding: 24, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' },
-  header:  { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 },
-  title:   { margin: 0, fontSize: 16, fontWeight: 600 },
-  subtitle:{ margin: '4px 0 0', fontSize: 12, color: '#6b7280' },
-  btn:     { background: '#f3f4f6', border: 'none', borderRadius: 6, padding: '6px 12px', cursor: 'pointer', fontSize: 13, color: '#374151' },
-  table:   { overflow: 'auto' },
-  thead:   { display: 'flex', padding: '6px 0', borderBottom: '1px solid #f3f4f6', marginBottom: 4 },
-  row:     { display: 'flex', padding: '8px 0', borderBottom: '1px solid #f9fafb', alignItems: 'center' },
-  col:     { fontSize: 13, paddingRight: 8, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#6b7280', fontWeight: 500 },
-  pill:    { fontSize: 11, padding: '2px 8px', borderRadius: 20, fontWeight: 600 },
-  empty:   { padding: '40px 0', textAlign: 'center', color: '#9ca3af', fontSize: 14 },
+  card:     { background: 'var(--card)', borderRadius: 10, padding: 24, boxShadow: 'var(--shadow)' },
+  header:   { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 },
+  title:    { margin: 0, fontSize: 16, fontWeight: 600, color: 'var(--text)' },
+  subtitle: { margin: '4px 0 0', fontSize: 12, color: 'var(--text-muted)' },
+  btn:      { background: 'var(--input-bg)', border: '1px solid var(--border)', borderRadius: 6, padding: '6px 12px', cursor: 'pointer', fontSize: 13, color: 'var(--text)' },
+  table:    { overflow: 'auto' },
+  thead:    { display: 'flex', padding: '6px 0', borderBottom: '1px solid var(--border)', marginBottom: 4 },
+  row:      { display: 'flex', padding: '8px 0', borderBottom: '1px solid var(--border)', alignItems: 'center' },
+  col:      { fontSize: 13, paddingRight: 8, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--text-muted)', fontWeight: 500 },
+  pill:     { fontSize: 11, padding: '2px 8px', borderRadius: 20, fontWeight: 600 },
+  empty:    { padding: '40px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 },
 }

@@ -68,10 +68,10 @@ export function CostCards({ summary }: Props) {
 
 const s: Record<string, React.CSSProperties> = {
   row:      { display: 'flex', gap: 16, flexWrap: 'wrap' },
-  card:     { flex: '1 1 180px', background: '#fff', borderRadius: 10, padding: '16px 20px', boxShadow: '0 1px 4px rgba(0,0,0,0.08)', position: 'relative', overflow: 'hidden' },
+  card:     { flex: '1 1 180px', background: 'var(--card)', borderRadius: 10, padding: '16px 20px', boxShadow: 'var(--shadow)', position: 'relative', overflow: 'hidden' },
   accent:   { position: 'absolute', top: 0, left: 0, right: 0, height: 3 },
-  label:    { margin: '8px 0 4px', fontSize: 12, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' },
+  label:    { margin: '8px 0 4px', fontSize: 12, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' },
   value:    { margin: '0 0 4px', fontSize: 28, fontWeight: 700 },
-  sub:      { margin: 0, fontSize: 12, color: '#9ca3af' },
-  skeleton: { height: 80, background: '#f3f4f6', borderRadius: 6, marginTop: 8 },
+  sub:      { margin: 0, fontSize: 12, color: 'var(--text-muted)' },
+  skeleton: { height: 80, background: 'var(--border)', borderRadius: 6, marginTop: 8 },
 }
