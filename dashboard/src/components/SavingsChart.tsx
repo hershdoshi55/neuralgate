@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid,
+  AreaChart, Area, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, ResponsiveContainer,
 } from 'recharts'
 import type { SavingsData } from '../types'
@@ -30,23 +30,38 @@ export function SavingsChart({ days }: Props) {
         </div>
         {data && (
           <div style={s.badge}>
-            {data.savings_percent}% saved &nbsp;·&nbsp; ${data.total_savings_usd.toFixed(4)} total
+            <span style={{ color: '#10b981', fontWeight: 700 }}>{data.savings_percent}% saved</span>
+            <span style={s.badgeDivider}>·</span>
+            <span>${data.total_savings_usd.toFixed(4)} total</span>
           </div>
         )}
       </div>
       {rows.length === 0 ? (
         <div style={s.empty}>No data yet — send some requests first.</div>
       ) : (
-        <ResponsiveContainer width="100%" height={280}>
-          <LineChart data={rows}>
-            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-            <XAxis dataKey="date" tick={{ fontSize: 11 }} />
-            <YAxis tickFormatter={(v: number) => `$${v.toFixed(4)}`} tick={{ fontSize: 11 }} width={70} />
-            <Tooltip formatter={(v: number, n: string) => [`$${v.toFixed(6)}`, n]} />
-            <Legend />
-            <Line type="monotone" dataKey="hypothetical" stroke="#ef4444" strokeDasharray="5 5" name="If all-frontier" dot={false} strokeWidth={1.5} />
-            <Line type="monotone" dataKey="actual"       stroke="#22c55e" name="Actual cost"    dot={false} strokeWidth={2} />
-          </LineChart>
+        <ResponsiveContainer width="100%" height={260}>
+          <AreaChart data={rows} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
+            <defs>
+              <linearGradient id="colorFrontier" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#ef4444" stopOpacity={0.15}/>
+                <stop offset="95%" stopColor="#ef4444" stopOpacity={0.02}/>
+              </linearGradient>
+              <linearGradient id="colorActual" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#10b981" stopOpacity={0.2}/>
+                <stop offset="95%" stopColor="#10b981" stopOpacity={0.02}/>
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+            <XAxis dataKey="date" tick={{ fontSize: 11, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
+            <YAxis tickFormatter={(v: number) => `$${v.toFixed(3)}`} tick={{ fontSize: 11, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} width={65} />
+            <Tooltip
+              formatter={(v: number, n: string) => [`$${v.toFixed(6)}`, n]}
+              contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, boxShadow: 'var(--shadow-md)', fontSize: 12 }}
+            />
+            <Legend wrapperStyle={{ fontSize: 12, paddingTop: 8 }} />
+            <Area type="monotone" dataKey="hypothetical" stroke="#ef4444" strokeDasharray="5 5" strokeWidth={2} fill="url(#colorFrontier)" name="If all-frontier" dot={false} />
+            <Area type="monotone" dataKey="actual"       stroke="#10b981" strokeWidth={2.5}   fill="url(#colorActual)"   name="Actual cost"    dot={false} />
+          </AreaChart>
         </ResponsiveContainer>
       )}
     </div>
@@ -54,10 +69,11 @@ export function SavingsChart({ days }: Props) {
 }
 
 const s: Record<string, React.CSSProperties> = {
-  card:     { background: 'var(--card)', borderRadius: 10, padding: 24, boxShadow: 'var(--shadow)' },
-  header:   { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 },
-  title:    { margin: 0, fontSize: 16, fontWeight: 600, color: 'var(--text)' },
-  subtitle: { margin: '4px 0 0', fontSize: 12, color: 'var(--text-muted)' },
-  badge:    { background: '#f0fdf4', color: '#16a34a', padding: '4px 10px', borderRadius: 20, fontSize: 12, fontWeight: 600, whiteSpace: 'nowrap' },
-  empty:    { height: 280, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: 14 },
+  card:         { background: 'var(--card)', borderRadius: 'var(--radius)', padding: 24, boxShadow: 'var(--shadow)', border: '1px solid var(--border)' },
+  header:       { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 },
+  title:        { fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' },
+  subtitle:     { fontSize: 12, color: 'var(--text-muted)', marginTop: 3 },
+  badge:        { display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(16,185,129,0.1)', color: 'var(--text-muted)', padding: '6px 12px', borderRadius: 20, fontSize: 12, fontWeight: 500, whiteSpace: 'nowrap', border: '1px solid rgba(16,185,129,0.2)' },
+  badgeDivider: { color: 'var(--border)' },
+  empty:        { height: 260, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: 14 },
 }

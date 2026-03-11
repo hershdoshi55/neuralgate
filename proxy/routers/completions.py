@@ -61,14 +61,28 @@ async def chat_completions(
     messages_json = json.dumps(messages, sort_keys=True)
     messages_hash = hashlib.sha256(messages_json.encode()).hexdigest()
 
+    # Use only the last user message for semantic embedding.
+    # Using full_text (entire conversation) causes consecutive turns to appear
+    # semantically identical since each turn is a superset of the previous one.
+    cache_text = next(
+        (m["content"] for m in reversed(messages) if m.get("role") == "user"),
+        full_text,
+    )
+
     # ── Step 3: Semantic cache check ──────────────────────────────────────
     cache_result = None
-    skip_cache = x_skip_cache and x_skip_cache.lower() == "true"
+    _routing_aliases = {"auto", "cheapest", "balanced", "best", "most-capable"}
+    # Skip cache read when a specific model is hard-selected — the user wants
+    # that model's actual response, not a cached response from a different model.
+    skip_cache = (
+        (x_skip_cache and x_skip_cache.lower() == "true")
+        or (request_body.model not in _routing_aliases and request_body.model in MODEL_REGISTRY)
+    )
 
     if not skip_cache:
         cache_result = await check_semantic_cache(
             messages_hash=messages_hash,
-            full_text=full_text,
+            full_text=cache_text,
             db=request.app.state.db_pool,
             redis=request.app.state.redis,
         )
@@ -216,7 +230,7 @@ async def chat_completions(
     # ── Step 8: Store in semantic cache ───────────────────────────────────
     asyncio.create_task(store_semantic_cache(
         messages_hash=messages_hash,
-        full_text=full_text,
+        full_text=cache_text,
         response_content=provider_response.content,
         response_metadata={
             "model": actual_model,

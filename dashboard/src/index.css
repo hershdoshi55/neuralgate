@@ -1,28 +1,48 @@
-/* variables */
 :root {
-  --bg: #f1f5f9;
-  --card: #ffffff;
-  --text: #0f172a;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --sidebar-bg: #1a2035;
-  --sidebar-text: #94a3b8;
+  --bg:              #f0f2f8;
+  --card:            #ffffff;
+  --text:            #111827;
+  --text-muted:      #6b7280;
+  --border:          #e5e7eb;
+  --sidebar-bg:      #1a2035;
+  --sidebar-text:    #8b95b0;
   --sidebar-text-active: #ffffff;
-  --sidebar-active-bg: rgba(99,102,241,0.15);
-  --sidebar-accent: #6366f1;
-  --input-bg: #f8fafc;
-  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-  --radius: 12px;
+  --sidebar-active-bg: rgba(99,102,241,0.18);
+  --sidebar-accent:  #6366f1;
+  --input-bg:        #f9fafb;
+  --shadow-sm:       0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow:          0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+  --shadow-md:       0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+  --radius:          14px;
+  --radius-sm:       8px;
 }
+
 [data-theme="dark"] {
-  --bg: #0d1117;
-  --card: #161b27;
-  --text: #e2e8f0;
-  --text-muted: #64748b;
-  --border: #1e2a3a;
-  --input-bg: #1e2a3a;
-  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --bg:              #0d1117;
+  --card:            #161b27;
+  --text:            #e2e8f0;
+  --text-muted:      #5a6580;
+  --border:          #222d3d;
+  --input-bg:        #1e2a3a;
+  --shadow-sm:       0 1px 3px rgba(0,0,0,0.4);
+  --shadow:          0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
+  --shadow-md:       0 10px 15px -3px rgba(0,0,0,0.5), 0 4px 6px -2px rgba(0,0,0,0.3);
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); transition: background 0.2s, color 0.2s; }
-::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.2s, color 0.2s;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: inherit; }
+input, textarea, select { font-family: inherit; }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }

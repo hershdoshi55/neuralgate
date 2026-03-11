@@ -22,7 +22,7 @@ function Shell() {
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
       <Sidebar page={page} setPage={setPage} />
-      <main style={{ flex: 1, padding: 28, overflow: 'auto', display: 'flex', flexDirection: 'column' }}>
+      <main style={s.main}>
         {page === 'analytics'
           ? <AnalyticsPage summary={summary} days={days} setDays={setDays} />
           : <ChatPage />
@@ -38,4 +38,8 @@ export default function App() {
       <Shell />
     </ThemeProvider>
   )
+}
+
+const s: Record<string, React.CSSProperties> = {
+  main: { flex: 1, padding: '28px 32px', overflow: 'auto', display: 'flex', flexDirection: 'column', minWidth: 0 },
 }
