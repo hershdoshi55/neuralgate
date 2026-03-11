@@ -129,6 +129,12 @@ async def chat_completions(
     else:
         complexity_result = classify_complexity(messages)
 
+    # If the client used an alias that forces a specific tier, update the logged tier
+    # so analytics reflect the actual routing decision, not just classifier output
+    _alias_tier = {"cheapest": "cheap", "balanced": "mid", "best": "frontier", "most-capable": "frontier"}
+    if request_body.model in _alias_tier:
+        complexity_result = {**complexity_result, "tier": _alias_tier[request_body.model]}
+
     # ── Step 5: Select model + failover chain ─────────────────────────────
     selected_model, failover_chain = select_model(
         requested_model=request_body.model,
