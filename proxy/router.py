@@ -41,68 +41,61 @@ def select_model(
         # Unknown model — default to auto routing
         target_tier = tier
 
-    # Filter candidates by tier
+    # Use the tier default as primary unless a constraint forces a different choice
+    default_model = TIER_DEFAULTS.get(target_tier)
+    failover_chain = FAILOVER_CHAINS.get(target_tier, [])
+
+    # Check if the default fits and no constraints override it
+    def _fits(model_id: str) -> bool:
+        info = MODEL_REGISTRY.get(model_id)
+        if not info:
+            return False
+        if info["context_window"] <= prompt_tokens + 500:
+            return False
+        if preferred_provider and info["provider"] != preferred_provider:
+            return False
+        if max_cost_per_request:
+            est_cost = (
+                prompt_tokens / 1_000_000 * info["input_cost_per_million"] +
+                500 / 1_000_000 * info["output_cost_per_million"]
+            )
+            if est_cost > max_cost_per_request:
+                return False
+        return True
+
+    if default_model and _fits(default_model):
+        selected = default_model
+        failover = [m for m in failover_chain if m != selected]
+        return selected, failover
+
+    # Default doesn't fit constraints — pick from full tier candidate list
     candidates = [
         model_id for model_id, info in MODEL_REGISTRY.items()
-        if info["tier"] == target_tier
+        if info["tier"] == target_tier and _fits(model_id)
     ]
 
-    # Filter by context window — prompt must fit
-    candidates = [
-        m for m in candidates
-        if MODEL_REGISTRY[m]["context_window"] > prompt_tokens + 500
-        # +500 buffer for output tokens
-    ]
-
-    # If no candidates fit context window, escalate to next tier
+    # Escalate tier if nothing fits context window
     if not candidates:
-        next_tier_idx = ["cheap", "mid", "frontier"].index(target_tier) + 1
-        if next_tier_idx < 3:
-            next_tier = ["cheap", "mid", "frontier"][next_tier_idx]
+        for escalate_tier in ["mid", "frontier"]:
+            if escalate_tier == target_tier:
+                continue
             candidates = [
                 m for m in MODEL_REGISTRY
-                if MODEL_REGISTRY[m]["tier"] == next_tier
-                and MODEL_REGISTRY[m]["context_window"] > prompt_tokens + 500
+                if MODEL_REGISTRY[m]["tier"] == escalate_tier and _fits(m)
             ]
+            if candidates:
+                break
 
     if not candidates:
-        # Nothing fits — return largest context model
         candidates = sorted(
             MODEL_REGISTRY.keys(),
             key=lambda m: MODEL_REGISTRY[m]["context_window"],
             reverse=True
         )
 
-    # Apply preferred provider filter if specified
-    if preferred_provider:
-        provider_candidates = [
-            m for m in candidates
-            if MODEL_REGISTRY[m]["provider"] == preferred_provider
-        ]
-        if provider_candidates:
-            candidates = provider_candidates
-
-    # Apply cost cap if specified
-    if max_cost_per_request:
-        cost_filtered = []
-        for m in candidates:
-            info = MODEL_REGISTRY[m]
-            # Estimate cost for a typical response (500 output tokens)
-            est_cost = (
-                prompt_tokens / 1_000_000 * info["input_cost_per_million"] +
-                500 / 1_000_000 * info["output_cost_per_million"]
-            )
-            if est_cost <= max_cost_per_request:
-                cost_filtered.append(m)
-        if cost_filtered:
-            candidates = cost_filtered
-
-    # Sort candidates: prefer cheapest within the tier
-    candidates.sort(
-        key=lambda m: MODEL_REGISTRY[m]["input_cost_per_million"]
-    )
-
+    # Among constrained candidates, prefer cheapest
+    candidates.sort(key=lambda m: MODEL_REGISTRY[m]["input_cost_per_million"])
     selected = candidates[0]
-    failover = [m for m in FAILOVER_CHAINS.get(target_tier, []) if m != selected]
+    failover = [m for m in failover_chain if m != selected]
 
     return selected, failover

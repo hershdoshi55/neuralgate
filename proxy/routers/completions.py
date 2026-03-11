@@ -217,6 +217,8 @@ async def chat_completions(
             "finish_reason": provider_response.finish_reason,
             "prompt_tokens": provider_response.prompt_tokens,
             "completion_tokens": provider_response.completion_tokens,
+            "input_cost_usd": input_cost,
+            "output_cost_usd": output_cost,
         },
         ttl_hours=x_cache_ttl / 3600 if x_cache_ttl else None,
         db=request.app.state.db_pool,
