@@ -1,0 +1,14 @@
+{
+  "total": 30,
+  "ok": 30,
+  "failed": 0,
+  "cache_hits": 30,
+  "failovers": 0,
+  "tier_accuracy_pct": 0.0,
+  "latency_p50_ms": 0,
+  "latency_p95_ms": 0,
+  "latency_p99_ms": 0,
+  "total_cost_usd": 0,
+  "model_distribution": {},
+  "tier_distribution": {}
+}

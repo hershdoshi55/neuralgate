@@ -6,7 +6,7 @@ from proxy.settings import settings
 
 # Routers added as they are built (Day 4+)
 from proxy.routers import completions, models, analytics
-# from proxy.metrics import router as metrics_router
+from proxy.metrics import router as metrics_router
 
 
 @asynccontextmanager
@@ -38,5 +38,4 @@ app = FastAPI(
 app.include_router(completions.router)
 app.include_router(models.router)
 app.include_router(analytics.router, prefix="/analytics")
-# app.include_router(health.router)
-# app.include_router(metrics_router)
+app.include_router(metrics_router)
