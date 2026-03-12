@@ -9,7 +9,7 @@ NeuralGate is a proxy layer that sits in front of every major LLM provider and a
 ## Table of Contents
 
 1. [Motivation](#motivation)
-2. [How We Solve It](#how-we-solve-it)
+2. [Solution](#solution)
 3. [Dashboard](#dashboard)
 4. [How NeuralGate Differs from Competitors](#how-neuralgate-differs-from-competitors)
 5. [How It Works](#how-it-works)
@@ -36,7 +36,7 @@ That's the problem NeuralGate was built to solve.
 
 ---
 
-## How We Solve It
+## Solution
 
 NeuralGate sits between your application and every major LLM provider. Your code doesn't change — you just point your existing OpenAI SDK at the proxy and use `model="auto"`. From there, NeuralGate handles everything.
 
