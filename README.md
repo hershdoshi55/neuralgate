@@ -278,11 +278,7 @@ DEEPSEEK_API_KEY=sk-...                # optional
 docker-compose up -d
 ```
 
-| Service | URL |
-|---------|-----|
-| Dashboard | http://localhost:3000 |
-| Health check | http://localhost:8000/health |
-| Prometheus | http://localhost:9090 |
+Once running, launch NeuralGate: http://localhost:3000
 
 ---
 
