@@ -4,11 +4,11 @@
   --text:            #111827;
   --text-muted:      #6b7280;
   --border:          #e5e7eb;
-  --sidebar-bg:      #1a2035;
-  --sidebar-text:    #8b95b0;
+  --sidebar-bg:      #0a0a0a;
+  --sidebar-text:    #6b7280;
   --sidebar-text-active: #ffffff;
-  --sidebar-active-bg: rgba(99,102,241,0.18);
-  --sidebar-accent:  #6366f1;
+  --sidebar-active-bg: rgba(59,130,246,0.15);
+  --sidebar-accent:  #3b82f6;
   --input-bg:        #f9fafb;
   --shadow-sm:       0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
   --shadow:          0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);

@@ -4,9 +4,9 @@ import type { RoutingData } from '../types'
 import { apiFetch } from '../api'
 
 const TIER_COLORS: Record<string, string> = {
-  cheap:    '#10b981',
-  mid:      '#f59e0b',
-  frontier: '#6366f1',
+  cheap:    '#3b82f6',
+  mid:      '#60a5fa',
+  frontier: '#1d4ed8',
 }
 
 interface Props {
@@ -83,7 +83,7 @@ export function RoutingChart({ days }: Props) {
               <div style={s.failoverRow}>
                 <span style={{ ...s.dot, background: 'var(--border)' }} />
                 <span style={s.tierName}>Failover rate</span>
-                <span style={{ ...s.tierVal, color: data.failover_rate > 0.05 ? '#f59e0b' : 'var(--text-muted)' }}>
+                <span style={{ ...s.tierVal, color: data.failover_rate > 0.05 ? '#60a5fa' : 'var(--text-muted)' }}>
                   {(data.failover_rate * 100).toFixed(1)}%
                 </span>
               </div>
@@ -100,7 +100,7 @@ const s: Record<string, React.CSSProperties> = {
   header:      { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 },
   title:       { fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' },
   subtitle:    { fontSize: 12, color: 'var(--text-muted)', marginTop: 3 },
-  badge:       { background: 'rgba(245,158,11,0.12)', color: '#d97706', padding: '5px 12px', borderRadius: 20, fontSize: 12, fontWeight: 600, border: '1px solid rgba(245,158,11,0.2)', whiteSpace: 'nowrap' },
+  badge:       { background: 'rgba(59,130,246,0.1)', color: '#3b82f6', padding: '5px 12px', borderRadius: 20, fontSize: 12, fontWeight: 600, border: '1px solid rgba(59,130,246,0.2)', whiteSpace: 'nowrap' },
   body:        { display: 'flex', alignItems: 'center' },
   legend:      { flex: 1, display: 'flex', flexDirection: 'column', gap: 12 },
   legendRow:   { display: 'flex', alignItems: 'center', gap: 8 },

@@ -39,10 +39,10 @@ function LatencyIcon() {
 }
 
 const CARD_CONFIG = [
-  { color: '#6366f1', bg: 'linear-gradient(135deg, #6366f1, #8b5cf6)', Icon: RequestsIcon },
-  { color: '#10b981', bg: 'linear-gradient(135deg, #10b981, #059669)', Icon: CostIcon },
-  { color: '#f59e0b', bg: 'linear-gradient(135deg, #f59e0b, #d97706)', Icon: CacheIcon },
-  { color: '#ec4899', bg: 'linear-gradient(135deg, #ec4899, #db2777)', Icon: LatencyIcon },
+  { color: '#3b82f6', bg: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', Icon: RequestsIcon },
+  { color: '#2563eb', bg: 'linear-gradient(135deg, #1e40af, #2563eb)', Icon: CostIcon },
+  { color: '#60a5fa', bg: 'linear-gradient(135deg, #3b82f6, #60a5fa)', Icon: CacheIcon },
+  { color: '#93c5fd', bg: 'linear-gradient(135deg, #60a5fa, #93c5fd)', Icon: LatencyIcon },
 ]
 
 export function CostCards({ summary }: Props) {
