@@ -33,6 +33,7 @@ function providerColor(model: string, provider: string): string {
 export function LiveRequestFeed() {
   const [requests, setRequests] = useState<RecentRequest[]>([])
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
+  const [collapsed, setCollapsed] = useState(false)
 
   const refresh = useCallback(() => {
     apiFetch('/api/analytics/recent?limit=15')
@@ -53,22 +54,30 @@ export function LiveRequestFeed() {
   return (
     <div style={s.card}>
       <div style={s.header}>
-        <div>
-          <h3 style={s.title}>Live Request Feed</h3>
-          <p style={s.subtitle}>
-            {lastUpdated ? `Updated ${lastUpdated.toLocaleTimeString()}` : 'Loading…'} · refreshes every 5s
-          </p>
-        </div>
-        <button style={s.btn} onClick={refresh}>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" style={{ marginRight: 5, display: 'inline' }}>
-            <polyline points="23 4 23 10 17 10"/>
-            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => setCollapsed(c => !c)}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+            style={{ transition: 'transform 0.2s', transform: collapsed ? 'rotate(-90deg)' : 'rotate(0deg)', color: 'var(--text-muted)', flexShrink: 0 }}>
+            <polyline points="6 9 12 15 18 9"/>
           </svg>
-          Refresh
-        </button>
+          <div>
+            <h3 style={s.title}>Live Request Feed</h3>
+            <p style={s.subtitle}>
+              {lastUpdated ? `Updated ${lastUpdated.toLocaleTimeString()}` : 'Loading…'} · refreshes every 5s
+            </p>
+          </div>
+        </div>
+        {!collapsed && (
+          <button style={s.btn} onClick={refresh}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" style={{ marginRight: 5, display: 'inline' }}>
+              <polyline points="23 4 23 10 17 10"/>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </svg>
+            Refresh
+          </button>
+        )}
       </div>
 
-      <div style={s.tableWrap}>
+      {!collapsed && <div style={s.tableWrap}>
         <div style={s.thead}>
           <span style={{ ...s.th, flex: 2.5 }}>Model</span>
           <span style={{ ...s.th, flex: 1 }}>Tier</span>
@@ -120,7 +129,7 @@ export function LiveRequestFeed() {
             </div>
           )
         })}
-      </div>
+      </div>}
     </div>
   )
 }
