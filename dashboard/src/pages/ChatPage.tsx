@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { apiFetch } from '../api'
 
 interface ModelOption { id: string; owned_by: string }
 
@@ -45,7 +46,7 @@ export function ChatPage() {
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    fetch('/api/v1/models').then(r => r.json()).then(d => setModels(d.data ?? [])).catch(() => {})
+    apiFetch('/api/v1/models').then(r => r.json()).then(d => setModels(d.data ?? [])).catch(() => {})
   }, [])
 
   function handleModelChange(newModel: string) {
@@ -79,7 +80,7 @@ export function ChatPage() {
 
     try {
       const history = [...messages, userMsg].map(m => ({ role: m.role, content: m.content }))
-      const res = await fetch('/api/v1/chat/completions', {
+      const res = await apiFetch('/api/v1/chat/completions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ model: selectedModel, messages: history }),

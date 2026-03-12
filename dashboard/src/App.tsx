@@ -3,6 +3,7 @@ import { ThemeProvider } from './ThemeContext'
 import { Sidebar } from './components/Sidebar'
 import { AnalyticsPage } from './pages/AnalyticsPage'
 import { ChatPage } from './pages/ChatPage'
+import { apiFetch } from './api'
 import type { Summary } from './types'
 
 type Page = 'chat' | 'analytics'
@@ -13,7 +14,7 @@ function Shell() {
   const [days, setDays] = useState(7)
 
   useEffect(() => {
-    fetch(`/api/analytics/summary?days=${days}`)
+    apiFetch(`/api/analytics/summary?days=${days}`)
       .then(r => r.json())
       .then(setSummary)
       .catch(console.error)

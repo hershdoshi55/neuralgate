@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 import type { RoutingData } from '../types'
+import { apiFetch } from '../api'
 
 const TIER_COLORS: Record<string, string> = {
   cheap:    '#10b981',
@@ -16,7 +17,7 @@ export function RoutingChart({ days }: Props) {
   const [data, setData] = useState<RoutingData | null>(null)
 
   useEffect(() => {
-    fetch(`/api/analytics/routing?days=${days}`)
+    apiFetch(`/api/analytics/routing?days=${days}`)
       .then((r) => r.json())
       .then(setData)
       .catch(console.error)

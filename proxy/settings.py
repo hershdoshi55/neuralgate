@@ -22,6 +22,12 @@ class Settings(BaseSettings):
     cache_similarity_threshold: float = 0.95
     default_cache_ttl_hours: int = 24
 
+    # Proxy authentication (optional — if unset, auth is disabled)
+    proxy_api_key: Optional[str] = None
+
+    # Request payload storage for replay
+    store_payloads: bool = False
+
     # Routing defaults
     default_requested_model: str = "auto"
     max_failover_attempts: int = 3

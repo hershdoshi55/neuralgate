@@ -4,6 +4,7 @@ import {
   Tooltip, Legend, ResponsiveContainer,
 } from 'recharts'
 import type { SavingsData } from '../types'
+import { apiFetch } from '../api'
 
 interface Props {
   days: number
@@ -13,7 +14,7 @@ export function SavingsChart({ days }: Props) {
   const [data, setData] = useState<SavingsData | null>(null)
 
   useEffect(() => {
-    fetch(`/api/analytics/savings?days=${days}`)
+    apiFetch(`/api/analytics/savings?days=${days}`)
       .then((r) => r.json())
       .then(setData)
       .catch(console.error)

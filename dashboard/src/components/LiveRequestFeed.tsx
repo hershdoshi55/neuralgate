@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import type { RecentRequest } from '../types'
+import { apiFetch } from '../api'
 
 const TIER_COLOR: Record<string, string> = {
   cheap:    '#10b981',
@@ -34,7 +35,7 @@ export function LiveRequestFeed() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
 
   const refresh = useCallback(() => {
-    fetch('/api/analytics/recent?limit=15')
+    apiFetch('/api/analytics/recent?limit=15')
       .then((r) => r.json())
       .then((d) => {
         setRequests(d.requests ?? [])
@@ -125,17 +126,17 @@ export function LiveRequestFeed() {
 }
 
 const s: Record<string, React.CSSProperties> = {
-  card:      { background: 'var(--card)', borderRadius: 'var(--radius)', padding: 24, boxShadow: 'var(--shadow)', border: '1px solid var(--border)' },
-  header:    { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 },
-  title:     { fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' },
-  subtitle:  { fontSize: 12, color: 'var(--text-muted)', marginTop: 3 },
-  btn:       { display: 'flex', alignItems: 'center', background: 'var(--input-bg)', border: '1px solid var(--border)', borderRadius: 8, padding: '7px 14px', cursor: 'pointer', fontSize: 13, color: 'var(--text)', fontWeight: 500, transition: 'all 0.15s' },
-  tableWrap: { overflow: 'auto' },
-  thead:     { display: 'flex', padding: '0 0 10px', borderBottom: '2px solid var(--border)', marginBottom: 4 },
-  th:        { fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.07em', paddingRight: 12, overflow: 'hidden' },
-  row:       { display: 'flex', padding: '9px 0', borderBottom: '1px solid var(--border)', alignItems: 'center', transition: 'background 0.1s', borderRadius: 6 },
-  td:        { fontSize: 13, paddingRight: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 8 },
-  pill:      { fontSize: 11, padding: '3px 9px', borderRadius: 20, fontWeight: 700, letterSpacing: '0.02em' },
-  provDot:   { width: 8, height: 8, borderRadius: '50%', flexShrink: 0, display: 'inline-block' },
-  empty:     { padding: '48px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 },
+  card:        { background: 'var(--card)', borderRadius: 'var(--radius)', padding: 24, boxShadow: 'var(--shadow)', border: '1px solid var(--border)' },
+  header:      { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 },
+  title:       { fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' },
+  subtitle:    { fontSize: 12, color: 'var(--text-muted)', marginTop: 3 },
+  btn:         { display: 'flex', alignItems: 'center', background: 'var(--input-bg)', border: '1px solid var(--border)', borderRadius: 8, padding: '7px 14px', cursor: 'pointer', fontSize: 13, color: 'var(--text)', fontWeight: 500 },
+  tableWrap:   { overflow: 'auto' },
+  thead:       { display: 'flex', padding: '0 0 10px', borderBottom: '2px solid var(--border)', marginBottom: 4 },
+  th:          { fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' as const, letterSpacing: '0.07em', paddingRight: 12, overflow: 'hidden' },
+  row:         { display: 'flex', padding: '9px 0', borderBottom: '1px solid var(--border)', alignItems: 'center', borderRadius: 6 },
+  td:          { fontSize: 13, paddingRight: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 8 },
+  pill:        { fontSize: 11, padding: '3px 9px', borderRadius: 20, fontWeight: 700, letterSpacing: '0.02em' },
+  provDot:     { width: 8, height: 8, borderRadius: '50%', flexShrink: 0, display: 'inline-block' },
+  empty:       { padding: '48px 0', textAlign: 'center' as const, color: 'var(--text-muted)', fontSize: 14 },
 }
