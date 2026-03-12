@@ -43,13 +43,13 @@ export function SavingsChart({ days }: Props) {
         <ResponsiveContainer width="100%" height={260}>
           <AreaChart data={rows} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
             <defs>
-              <linearGradient id="colorFrontier" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#93c5fd" stopOpacity={0.2}/>
-                <stop offset="95%" stopColor="#93c5fd" stopOpacity={0.02}/>
+              <linearGradient id="colorSavings" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#22c55e" stopOpacity={0.35}/>
+                <stop offset="95%" stopColor="#22c55e" stopOpacity={0.05}/>
               </linearGradient>
               <linearGradient id="colorActual" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.25}/>
-                <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.02}/>
+                <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.05}/>
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
@@ -60,7 +60,7 @@ export function SavingsChart({ days }: Props) {
               contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, boxShadow: 'var(--shadow-md)', fontSize: 12 }}
             />
             <Legend wrapperStyle={{ fontSize: 12, paddingTop: 8 }} />
-            <Area type="monotone" dataKey="hypothetical" stroke="#93c5fd" strokeDasharray="5 5" strokeWidth={2} fill="url(#colorFrontier)" name="If all-frontier" dot={false} />
+            <Area type="monotone" dataKey="hypothetical" stroke="#93c5fd" strokeDasharray="5 5" strokeWidth={2} fill="url(#colorSavings)" name="If all-frontier" dot={false} />
             <Area type="monotone" dataKey="actual"       stroke="#3b82f6" strokeWidth={2.5}   fill="url(#colorActual)"   name="Actual cost"    dot={false} />
           </AreaChart>
         </ResponsiveContainer>

@@ -1,14 +1,22 @@
 {
-  "total": 30,
-  "ok": 30,
+  "total": 10,
+  "ok": 10,
   "failed": 0,
-  "cache_hits": 30,
+  "cache_hits": 0,
   "failovers": 0,
-  "tier_accuracy_pct": 0.0,
-  "latency_p50_ms": 0,
-  "latency_p95_ms": 0,
-  "latency_p99_ms": 0,
-  "total_cost_usd": 0,
-  "model_distribution": {},
-  "tier_distribution": {}
+  "tier_accuracy_pct": 80.0,
+  "latency_p50_ms": 2674,
+  "latency_p95_ms": 76360,
+  "latency_p99_ms": 76360,
+  "total_cost_usd": 0.138877,
+  "model_distribution": {
+    "claude-haiku-4-5-20251001": 7,
+    "claude-sonnet-4-6": 1,
+    "claude-opus-4-6": 2
+  },
+  "tier_distribution": {
+    "cheap": 7,
+    "mid": 1,
+    "frontier": 2
+  }
 }

@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 import asyncpg
 import redis.asyncio as aioredis
 from proxy.settings import settings
@@ -43,3 +43,19 @@ app.include_router(completions.router)
 app.include_router(models.router)
 app.include_router(analytics.router, prefix="/analytics")
 app.include_router(metrics_router)
+
+
+@app.get("/health")
+async def health(request: Request):
+    status = {"status": "ok", "db": "ok", "redis": "ok"}
+    try:
+        await request.app.state.db_pool.fetchval("SELECT 1")
+    except Exception as e:
+        status["db"] = str(e)
+        status["status"] = "degraded"
+    try:
+        await request.app.state.redis.ping()
+    except Exception as e:
+        status["redis"] = str(e)
+        status["status"] = "degraded"
+    return status
