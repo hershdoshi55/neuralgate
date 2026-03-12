@@ -275,10 +275,18 @@ DEEPSEEK_API_KEY=sk-...                # optional
 ### 2. Start
 
 ```bash
-docker-compose up -d
+docker-compose up -d --build
 ```
 
+The `--build` flag is only needed on first run (or after code changes) — Docker builds the proxy and dashboard images from the local Dockerfiles. Subsequent starts don't need it.
+
 Once running, launch NeuralGate: http://localhost:3000
+
+To stop all services:
+
+```bash
+docker-compose down
+```
 
 ---
 
