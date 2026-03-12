@@ -48,7 +48,7 @@ Across 7 days of real traffic: **715 requests routed**, **20.4% cost savings** v
 
 ## Dashboard
 
-![NeuralGate Analytics Dashboard](metrics.png)
+![NeuralGate Analytics Dashboard](docs/metrics.png)
 
 The dashboard makes the core argument visually. **74.1% of all requests were classified as cheap-tier** — handled entirely by Claude Haiku or GPT-5 Nano at a fraction of the cost of frontier models. Only 2.4% of requests were complex enough to warrant a frontier model. This is the distribution you see in real-world traffic: most questions people ask are simple, and the reflex to route everything to the best model is costing teams money they don't need to spend.
 
@@ -60,8 +60,8 @@ The cache tells a similar story. A **20.3% cache hit rate** meant 78,763 tokens 
 
 <table>
   <tr>
-    <td width="50%"><img src="cheap.png" alt="Simple routing with cache hit and multi-model conversation" width="100%"/></td>
-    <td width="50%"><img src="complex.png" alt="Complex code generation routed to frontier model" width="100%"/></td>
+    <td width="50%"><img src="docs/cheap.png" alt="Simple routing with cache hit and multi-model conversation" width="100%"/></td>
+    <td width="50%"><img src="docs/complex.png" alt="Complex code generation routed to frontier model" width="100%"/></td>
   </tr>
 </table>
 
