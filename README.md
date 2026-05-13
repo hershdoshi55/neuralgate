@@ -4,27 +4,6 @@ NeuralGate is a proxy layer that sits in front of every major LLM provider and a
 
 **Stack:** Python 3.11 · FastAPI · PostgreSQL 16 (pgvector) · Redis 7 · Docker Compose · React (Vite)
 
-   
-
-## Table of Contents
-
-1. [Motivation](#motivation)
-2. [Solution](#solution)
-3. [Dashboard](#dashboard)
-4. [How NeuralGate Differs from Competitors](#how neuralgate differs from competitors)
-5. [How It Works](#how it works)
-6. [Model Registry](#model registry)
-7. [Complexity Classifier](#complexity classifier)
-8. [Two Level Semantic Cache](#two level semantic cache)
-9. [Provider Failover](#provider failover)
-10. [API](#api)
-11. [Rate Limiting](#rate limiting)
-12. [Setup](#setup)
-13. [Design Tradeoffs](#design tradeoffs)
-14. [Architecture](#architecture)
-15. [Future Improvements](#future improvements)
-
-   
 
 ## Motivation
 
